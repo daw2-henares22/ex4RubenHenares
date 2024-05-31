@@ -1,5 +1,6 @@
 import { Modal } from "../components/Modal";
 import { TablaPendientes } from "../components/TablaPendientes";
+
 import { TablaResueltos } from "../components/TablaResueltos";
 
 export function Panell(){

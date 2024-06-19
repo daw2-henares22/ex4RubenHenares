@@ -1,23 +1,37 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import db from '../bd.js';
+import React, { useState, useEffect, createContext, useContext } from "react";
 
-export const GlobalContext = createContext();
+// Creación del contexto
+const GlobalContext = createContext();
 
-export function GlobalProvider({ children }) {
-  const [ticketsPendientes, setTicketsPendientes] = useState([]);
+export const GlobalProvider = ({ children }) => {
   const [ticketsResueltos, setTicketsResueltos] = useState([]);
+  const [ticketsPendientes, setTicketsPendientes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async (url, setData) => {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        data.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+        setData(data);
+      } else {
+        console.error(`Error al obtener los datos de ${url}:`, response.status);
+      }
+    } catch (error) {
+      console.error(`Error al obtener los datos de ${url}:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    
-    const pendientesOrdenados = db.ticketsPendientes.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
-    setTicketsPendientes(pendientesOrdenados);
-
-    const resueltosOrdenados = db.ticketsResueltos.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
-    setTicketsResueltos(resueltosOrdenados);
+    fetchData('https://json-server-vercel-main-examen.vercel.app/ticketsResueltos', setTicketsResueltos);
+    fetchData('https://json-server-vercel-main-examen.vercel.app/ticketsPendientes', setTicketsPendientes);
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ ticketsPendientes, setTicketsPendientes, ticketsResueltos, setTicketsResueltos }}>
+    <GlobalContext.Provider value={{ ticketsResueltos, ticketsPendientes, loading }}>
       {children}
     </GlobalContext.Provider>
   );
@@ -25,4 +39,4 @@ export function GlobalProvider({ children }) {
 
 export const useGlobalContext = () => {
   return useContext(GlobalContext);
-};
+}

@@ -13,7 +13,7 @@ function TablaPendientes() {
   const borrarDatosCard = async (id) => {
     console.log("ID del ticket a borrar:", id);
     try {
-      const url = `https://json-server-vercel-main-examen.vercel.app/ticketsPendientes/${id}`;
+      const url = `https://json-server-vercel-main-examen.vercel.app/ticketsPendientes/{id}`;
       console.log('Deleting ticket at:', url);
   
       const response = await fetch(url, {
@@ -21,7 +21,7 @@ function TablaPendientes() {
       });
   
       if (response.ok) {
-        // Actualiza el estado local o global después de la eliminación
+        
         setTicketsPendientes(prevTickets => prevTickets.filter(ticket => ticket.codigo !== id));
         console.log(`Ticket con ID ${id} eliminado exitosamente`);
       } else {

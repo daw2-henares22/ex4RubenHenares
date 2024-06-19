@@ -13,7 +13,7 @@ function TablaPendientes() {
   const borrarDatosCard = async (id) => {
     console.log("ID del ticket a borrar:", id);
     try {
-      const url = `https://json-server-vercel-main-examen.vercel.app/ticketsPendientes/{id}`;
+      const url = `https://json-server-vercel-main-examen.vercel.app/ticketsPendientes/${id}`;
       console.log('Deleting ticket at:', url);
   
       const response = await fetch(url, {
@@ -55,8 +55,8 @@ function TablaPendientes() {
         </thead>
         <tbody>
           {ticketsPendientes.map(ticket => (
-            <tr key={ticket.codigo}>
-              <td>{ticket.codigo}</td>
+            <tr key={ticket.id}>
+              <td>{ticket.id}</td>
               <td>{ticket.fecha}</td>
               <td>{ticket.aula}</td>
               <td>{ticket.grupo}</td>
@@ -79,7 +79,7 @@ function TablaPendientes() {
                 </button>
               </td>
               <td>
-                <button className="btn btn-danger" title="Eliminar ticket" onClick={() => borrarDatosCard(ticket.codigo)}>
+                <button className="btn btn-danger" title="Eliminar ticket" onClick={() => borrarDatosCard(ticket.id)}>
                   <i className="bi bi-trash">Eliminar</i>
                 </button>
               </td>

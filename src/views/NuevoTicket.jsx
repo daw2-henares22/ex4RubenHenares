@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function NuevoTicket() {
+export function NuevoTicket() {
   const [formData, setFormData] = useState({
     fecha: "",
     aula: "",
@@ -20,9 +20,7 @@ function NuevoTicket() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes enviar los datos del nuevo ticket al servidor
     console.log("Datos del nuevo ticket:", formData);
-    // Limpia el formulario después de enviar
     setFormData({
       fecha: "",
       aula: "",
@@ -101,5 +99,3 @@ function NuevoTicket() {
     </div>
   );
 }
-
-export default NuevoTicket;

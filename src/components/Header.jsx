@@ -10,6 +10,7 @@ export default function Header() {
             <Link to="/panel" className="btn btn-secondary ms-2">PANEL</Link>
             <Link to="/login" className="btn btn-secondary ms-2">LOGIN</Link>
             <Link to="/registro" className="btn btn-secondary ms-2">REGISTRO</Link>
+            <Link to="/nuevoTicket" className="btn btn-secondary ms-2">NUEVO TICKET</Link>
           </div>
           <div>
             <span>RubénHenaresAdmin@fpllefia.com</span>
